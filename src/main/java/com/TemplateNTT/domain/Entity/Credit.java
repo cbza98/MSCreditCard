@@ -19,21 +19,30 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Account {
+public class Credit {
 
 	@Id
-	private String accountId;
+	private String creditid;
 	@NotNull
-	private String accountName;
+	private String creditname;
 	@NotNull
 	@BusinessPartner
 	private String code_BusinessPartner;
 	@NotNull
-	private String accountNumber;
+	private String accountid;
 	@NotNull
-	private String accountType;
+	private String credittype;
 	@NotNull
-	private Date date_Opened;
+	private Integer creditcardid;
+
+	@NotNull
+	private Date createdate;
+	@NotNull
+	private Date assignmentdate;
+	@NotNull
+	private Double approvedcredit;
+	@NotNull
+	private String currencycredit;
 	@NotNull
 	private Boolean valid;
 

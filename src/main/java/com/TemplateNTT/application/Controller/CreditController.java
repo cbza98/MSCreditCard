@@ -11,39 +11,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.support.WebExchangeBindException;
 
-import com.TemplateNTT.domain.Entity.Account;
-import com.TemplateNTT.infraestructure.Services.AccountService;
+import com.TemplateNTT.domain.Entity.Credit;
+import com.TemplateNTT.infraestructure.Services.CreditService;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/Account")
-public class AccountController {
+@RequestMapping("/api/Credit")
+public class CreditController {
 	@Autowired
-	private AccountService service;
+	private CreditService service;
 
 	@GetMapping
-	public Mono<ResponseEntity<Flux<Account>>> GetAll() {
+	public Mono<ResponseEntity<Flux<Credit>>> FindAll() {
 		return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8).body(service.findAll()));
 	}
 
+	@GetMapping("/{id}")
+	public Mono<Credit> findById(@PathVariable String id) {
+		return service.findById(id);
+	}
+
 	@PostMapping
-	public Mono<ResponseEntity<Map<String, Object>>> SaveAccount(@Valid @RequestBody Mono<Account> monoAccount) {
+	public Mono<ResponseEntity<Map<String, Object>>> Create(@Valid @RequestBody Mono<Credit> request) {
 		Map<String, Object> response = new HashMap<>();
 
-		return monoAccount.flatMap(a -> {
+		return request.flatMap(a -> {
 			return service.save(a).map(c -> {
-				response.put("Cuenta", c);
-				response.put("mensaje", "Cuenta creada con exito");
-				return ResponseEntity.created(URI.create("/api/Account/".concat(c.getAccountId())))
+				response.put("Credito", c);
+				response.put("mensaje", "Credito creado con exito");
+				return ResponseEntity.created(URI.create("/api/Account/".concat(c.getAccountid())))
 						.contentType(MediaType.APPLICATION_JSON_UTF8).body(response);
 			});
 		}).onErrorResume(t -> {
@@ -62,4 +70,17 @@ public class AccountController {
 
 		});
 	}
+
+	@PutMapping("/{id}")
+	public Mono<ResponseEntity<Credit>> Update(@PathVariable String id, @RequestBody Credit request) {
+		return service.update(id, request);
+
+	}
+
+	@DeleteMapping("/{id}")
+	public Mono<ResponseEntity<Void>> Delete(@PathVariable String id) {
+		return service.delete(id).map(r -> ResponseEntity.ok().<Void>build())
+				.defaultIfEmpty(ResponseEntity.notFound().build());
+	}
+
 }

@@ -1,3 +1,3 @@
-# MSCredit
+# MSCreditCard
 Base de Microservicios JAVA 11
-Proyecto base de microservicios - Entidad Credit
+Proyecto base de microservicios - Entidad CreditCard

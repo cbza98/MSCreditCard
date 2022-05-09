@@ -1,0 +1,8 @@
+com.TemplateNTT
+com.TemplateNTT.application.Controller
+com.TemplateNTT.application.Validation.Class
+com.TemplateNTT.application.Validation.Interfaces
+com.TemplateNTT.domain.Entity
+com.TemplateNTT.domain.Repository
+com.TemplateNTT.infraestructure.Intefaces
+com.TemplateNTT.infraestructure.Services

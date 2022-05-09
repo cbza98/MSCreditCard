@@ -6,8 +6,6 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
 
-import com.TemplateNTT.application.Validation.Interfaces.BusinessPartner;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,30 +17,22 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Credit {
-
-	@Id
-	private String creditid;
-	@NotNull
-	private String creditname;
-	@NotNull
-	@BusinessPartner
-	private String code_BusinessPartner;
-	@NotNull
-	private String accountid;
-	@NotNull
-	private String credittype;
+public class CreditCard {
 	@NotNull
 	private Integer creditcardid;
 
 	@NotNull
-	private Date createdate;
+	private String cardname;
 	@NotNull
-	private Date assignmentdate;
+	private Integer accountcode;
 	@NotNull
-	private Double approvedcredit;
+	private String cardnumber;
 	@NotNull
-	private String currencycredit;
+	private Date ddate;
+	@NotNull
+	private String ccv;
+	@Id
+	private String creditid;
 	@NotNull
 	private Boolean valid;
 
